@@ -1,0 +1,10 @@
+# macOS
+.DS_Store
+
+# Personnal files
+perso.*
+
+.env
+README.md.backup
+
+.vscode
