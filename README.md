@@ -26,22 +26,21 @@ This project is divided into three parts to be done in the order indicated:
 • Part 1: K3s with Vagrant  
 • Part 2: K3s with three simple applications  
 • Part 3: K3d with Argo CD
- 
+
 ## Configuration globale et explication
 
 **Configuration de la vm qui contient les autres vm :**
 
     Installation de ubuntu 20.04
-    création de la vm: 
+    création de la vm:
         - installer virtualbox
-        - appuyer sur new : 
+        - appuyer sur new :
         - créer la vm avec linux, ubuntu, 2048 de mémoire vive, 30 GB de stockage sur le
          disque dur virtualbox, effacer le disque, setup linux, reboot et taper entrer
         - faire l'update des packages disponibles
         - installer les packages du fichier requirements.txt
     connection ssh a la vm:
         - pour l'instant j'ai un bug je règle ça demain.
-    
 
 **k3s :**
 
@@ -94,6 +93,7 @@ This project is divided into three parts to be done in the order indicated:
 - [Vagrant](https://www.vagrantup.com/)
 - [use K3s and its Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/)
 - [kubernetees resources](https://kubernetes.io/)
+- [Install Kubernetes Cluster on Ubuntu using K3s](https://computingforgeeks.com/install-kubernetes-on-ubuntu-using-k3s/)
 
 ## Authors
 
