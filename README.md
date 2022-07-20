@@ -27,6 +27,7 @@ This project is divided into three parts to be done in the order indicated:
 • Part 2: K3s with three simple applications  
 • Part 3: K3d with Argo CD
  
+
 ## Configuration globale et explication
 
 **Configuration de la vm qui contient les autres vm :**
@@ -34,14 +35,22 @@ This project is divided into three parts to be done in the order indicated:
     Installation de ubuntu 20.04
     création de la vm: 
         - installer virtualbox
-        - appuyer sur new : 
-        - créer la vm avec linux, ubuntu, 2048 de mémoire vive, 30 GB de stockage sur le
+        - appuyer sur new :
+        - créer la vm avec linux, ubuntu, 4096 de mémoire vive, 30 GB de stockage sur le
          disque dur virtualbox, effacer le disque, setup linux, reboot et taper entrer
-        - faire l'update des packages disponibles
+        - faire l'update et l'upgrade des packages disponibles
         - installer les packages du fichier requirements.txt
     connection ssh a la vm:
-        - pour l'instant j'ai un bug je règle ça demain.
-    
+        - mettre la vm en bridge connexion sur virtualbox
+        - lancer la vm
+        - restart le service sshd
+        - lancer ifconfig et taper dans terminal ssh user@ip
+    setup depuis ssh:
+        - scp install_docker.sh user@ip:/home/user/ 
+        - sh install_docker.sh 
+        - sudo ufw disable
+
+
 
 **k3s :**
 

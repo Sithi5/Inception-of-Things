@@ -2,4 +2,6 @@ vagrant
 kubectl
 virtualbox
 openssh-client
-docker
+net-tools
+openssh-server
+vim
