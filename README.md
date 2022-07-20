@@ -23,13 +23,27 @@ specific rules.
 
 This project is divided into three parts to be done in the order indicated:
 
-• Part 1: K3s with Vagrant
-• Part 2: K3s with three simple applications
+• Part 1: K3s with Vagrant  
+• Part 2: K3s with three simple applications  
 • Part 3: K3d with Argo CD
+ 
+## Configuration globale et explication
 
-#### Configuration globale et explication
+**Configuration de la vm qui contient les autres vm :**
 
-k3s :
+    Installation de ubuntu 20.04
+    création de la vm: 
+        - installer virtualbox
+        - appuyer sur new : 
+        - créer la vm avec linux, ubuntu, 2048 de mémoire vive, 30 GB de stockage sur le
+         disque dur virtualbox, effacer le disque, setup linux, reboot et taper entrer
+        - faire l'update des packages disponibles
+        - installer les packages du fichier requirements.txt
+    connection ssh a la vm:
+        - pour l'instant j'ai un bug je règle ça demain.
+    
+
+**k3s :**
 
     K3s est une distribution Kubernetes légère créée par Rancher Labs,
     et il est entièrement certifié par la Cloud Native Computing Foundation (CNCF).
@@ -46,7 +60,7 @@ k3s :
     ARM64 et ARMv7 sont pris en charge avec des fichiers binaires et des images multiarch disponibles pour les deux.
     K3s fonctionne très bien de quelque chose d'aussi petit qu'un Raspberry Pi à un serveur AWS a1.4xlarge 32GiB.
 
-Vagrant :
+**Vagrant :**
 
     Vagrant est un outil permettant de créer et de gérer des environnements de machines virtuelles dans un seul flux de travail.
     Avec un flux de travail facile à utiliser et une concentration sur l'automatisation, Vagrant réduit le temps de configuration de l'environnement de développement,
@@ -54,14 +68,14 @@ Vagrant :
 
 - [Deployer une vm avec vagrant](https://learn.hashicorp.com/tutorials/vagrant/getting-started-index?in=vagrant/getting-started)
 
-K3d :
+**K3d :**
 
     K3d est un petit programme (wrapper de k3s) fait pour lancer un cluster k3s dans docker. K3d nous permet de mettre en place tout ce qu'on fera avec vagrant, sans utiliser vagrant
     K3d sera plutôt utilisé dans la 3ème partie avec ArgoCD
 
 - [Introduction k3d](https://www.suse.com/c/rancher_blog/introduction-to-k3d-run-k3s-in-docker/)
 
-continuous integration & ArgoCD :
+**Continuous integration & ArgoCD :**
 
     L'intégration continue est un ensemble de pratiques utilisées en génie logiciel
     consistant à vérifier à chaque modification de code source que le résultat des modifications
@@ -74,6 +88,8 @@ continuous integration & ArgoCD :
 
 ## Resources
 
+- [ubuntu iso](https://releases.ubuntu.com/20.04/)
+- [centos8 iso](https://releases.centos.org/download/)
 - [k3d resources](https://k3d.io/v5.4.4/)
 - [Vagrant](https://www.vagrantup.com/)
 - [use K3s and its Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/)
@@ -82,3 +98,5 @@ continuous integration & ArgoCD :
 ## Authors
 
 - Malo Boucé
+- Julien Cammas
+- Mathieu Ginisty
