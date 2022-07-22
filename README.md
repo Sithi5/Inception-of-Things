@@ -36,19 +36,25 @@ This project is divided into three parts to be done in the order indicated:
         - installer virtualbox
         - appuyer sur new :
         - créer la vm avec linux, ubuntu, 2048 de mémoire vive, 30 GB de stockage sur le
-         disque dur virtualbox, effacer le disque, setup linux, reboot et taper entrer
+         disque dur virtualbox, effacer le disque, avant de lancer la vm, mettez 4 cpu dans settings setup linux, reboot et taper entrer
         - faire l'update et l'upgrade des packages disponibles
         - installer les packages du fichier requirements.txt
     connection ssh a la vm:
-        - mettre la vm en bridge connexion sur virtualbox
+        - créer une nouvelle connexion sur virtualbox pour 42 en NAT sinon le proxy bloque la connexion en bridge
+        - mettre la première connexion de la vm en bridge connexion sur virtualbox
         - lancer la vm
         - restart le service sshd
         - lancer ifconfig et taper dans terminal ssh user@ip
-    setup depuis ssh:
-        - scp install_docker.sh user@ip:/home/user/ 
-        - sh install_docker.sh 
-        - sudo ufw disable
 
+ setup depuis ssh:  
+```bash
+        scp install_docker.sh user@ip:/home/user/  # modifier path 
+        sh install_docker.sh   
+        sudo ufw disable  
+        sudo apt install qemu qemu-kvm libvirt-clients libvirt-daemon-system virtinst bridge-utils  
+        sudo systemctl enable libvirtd  
+        sudo systemctl start libvirtd  
+```   
 **k3s :**
 
     K3s est une distribution Kubernetes légère créée par Rancher Labs,
