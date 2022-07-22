@@ -66,6 +66,11 @@ This project is divided into three parts to be done in the order indicated:
     ARM64 et ARMv7 sont pris en charge avec des fichiers binaires et des images multiarch disponibles pour les deux.
     K3s fonctionne très bien de quelque chose d'aussi petit qu'un Raspberry Pi à un serveur AWS a1.4xlarge 32GiB.
 
+    K3s est setup directement avec kubectl pour pourvoir gérer facilement les clusters.
+
+**cluster :**
+    
+
 **Vagrant :**
 
     Vagrant est un outil permettant de créer et de gérer des environnements de machines virtuelles dans un seul flux de travail.
@@ -93,7 +98,7 @@ This project is divided into three parts to be done in the order indicated:
 - [Introduction ArgoCD](https://codefresh.io/learn/argo-cd/#:~:text=Argo%20CD%20is%20a%20Kubernetes%20controller%2C%20responsible%20for%20continuously%20monitoring,the%20desired%20state%20as%20OutOfSync.)
 
 ## Resources
-
+- [k3s documentations](https://blog.filador.fr/a-la-decouverte-de-k3s/#:~:text=Fonctionnement&text=Cela%20va%20d%C3%A9marrer%20le%20master,%2Fserver%2Fnode%2Dtoken%20.&text=Et%20votre%20cluster%20K3S%20est%20op%C3%A9rationnel.)
 - [ubuntu iso](https://releases.ubuntu.com/20.04/)
 - [centos8 iso](https://releases.centos.org/download/)
 - [k3d resources](https://k3d.io/v5.4.4/)

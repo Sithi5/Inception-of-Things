@@ -3,5 +3,6 @@ kubectl
 virtualbox
 openssh-client
 net-tools
+docker
 openssh-server
 vim

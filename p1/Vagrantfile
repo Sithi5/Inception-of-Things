@@ -2,6 +2,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 # Box / OS
+
 VAGRANT_BOX = 'centos/8'
 VM_NAME_MASTER = 'mabouceS'
 VM_NAME_WORKER = 'mabouceSW'
@@ -10,34 +11,43 @@ USER = 'mathou'
 HOST_PATH = '/home/' + USER + '/'
 GUEST_PATH_WORKER = '/home/' + VM_USER + '/' + VM_NAME_WORKER
 GUEST_PATH_MASTER = '/home/' + VM_USER + '/' + VM_NAME_MASTER
+MEM = 512
+CPUS = 1
+MASTER_IP = "192.168.42.110"
+WORKER_IP = "192.168.42.111"
 
 Vagrant.configure(2) do |config|
   config.vm.box = VAGRANT_BOX
+  config.vm.box_url = "https://vagrantcloud.com/centos/boxes/8/versions/2011.0/providers/virtualbox.box"
+  config.ssh.insert_key = true
   config.vm.provision "shell", inline: <<-SHELL 
-  --script--
+  yum update
+  yum upgrade
   SHELL
   config.vm.provider "virtualbox" do |v|
-    v.memory = 512
-    v.cpus = 1
+    v.memory = MEM
+    v.cpus = CPUS
   end
 
-  config.vm.define "master" do |master|:
+  config.vm.define "master" do |master|
     master.vm.hostname = VM_NAME_MASTER
     master.vm.synced_folder HOST_PATH, GUEST_PATH_MASTER 
-    master.vm.network "private_network", ip: "192.168.42.110"
+    master.vm.network "private_network", ip: MASTER_IP
     config.vm.synced_folder '.', '/home/' + VM_USER + '', disabled: true
 
-    worker.vm.provider "virtualbox" do |v|
-      v.name = VM_NAME_WORKER
+    master.vm.provider "virtualbox" do |v|
+      v.name = VM_NAME_MASTER
+    end
   end
 
-  config.vm.define "worker" do |worker|:
+  config.vm.define "worker" do |worker|
     worker.vm.hostname = VM_NAME_WORKER
     worker.vm.synced_folder HOST_PATH, GUEST_PATH_WORKER
-    worker.vm.network "private_network", ip: "192.168.42.111"
+    worker.vm.network "private_network", ip: WORKER_IP
 
     worker.vm.provider "virtualbox" do |v|
       v.name = VM_NAME_WORKER
+    end
   end
 
 end
