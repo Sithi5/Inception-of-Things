@@ -4,9 +4,9 @@
 # Box / OS
 
 VAGRANT_BOX = 'centos/8'
-VM_NAME_MASTER = 'mabouceS'
-VM_NAME_WORKER = 'mabouceSW'
-VM_USER = 'vagrant'
+VM_NAME_MASTER = 'jcammasS'
+VM_NAME_WORKER = 'jcammasSW'
+VM_USER = 'iot'
 USER = 'iot'
 HOST_PATH = '/home/' + USER + '/'
 GUEST_PATH_WORKER = '/home/' + VM_USER + '/' + VM_NAME_WORKER
@@ -18,7 +18,6 @@ WORKER_IP = "192.168.42.111"
 
 Vagrant.configure(2) do |config|
   config.vm.box = VAGRANT_BOX
-  config.vm.box_url = "https://vagrantcloud.com/centos/boxes/8/versions/2011.0/providers/virtualbox.box"
   config.ssh.insert_key = true
   config.vm.provision "shell", inline: <<-SHELL 
   yum update
@@ -27,9 +26,13 @@ Vagrant.configure(2) do |config|
   config.vm.provider "virtualbox" do |v|
     v.memory = MEM
     v.cpus = CPUS
+    v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+    v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+    v.gui = true
+
   end
 
-  config.vm.define "master" do |master|
+  config.vm.define VM_NAME_MASTER do |master|
     master.vm.hostname = VM_NAME_MASTER
     master.vm.synced_folder HOST_PATH, GUEST_PATH_MASTER 
     master.vm.network "private_network", ip: MASTER_IP
@@ -40,7 +43,7 @@ Vagrant.configure(2) do |config|
     end
   end
 
-  config.vm.define "worker" do |worker|
+  config.vm.define VM_NAME_WORKER do |worker|
     worker.vm.hostname = VM_NAME_WORKER
     worker.vm.synced_folder HOST_PATH, GUEST_PATH_WORKER
     worker.vm.network "private_network", ip: WORKER_IP
