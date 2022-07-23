@@ -23,5 +23,6 @@
 - [Ingress kubernetes](https://kubernetes.io/fr/docs/concepts/services-networking/ingress/)
 - [deploy ingress definition](https://github.com/paulbouwer/hello-kubernetes/blob/6e9ac0e273bfdaf1f9b78501e8b046be00d44eb3/docs/deploy-with-ingress.md#deploy-ingress-definition)
 - [deploy kubernetes on server => Image](https://hub.docker.com/r/paulbouwer/hello-kubernetes)
+- [package manager for Kubernetes](https://v3.helm.sh/)
 
 - Paul bouwer vraiment bcp de ressources => approfondir

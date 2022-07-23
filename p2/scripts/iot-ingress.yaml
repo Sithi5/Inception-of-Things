@@ -1,0 +1,46 @@
+# ingress to configure all app
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: iot-ingress
+spec:
+  #   tls: => je sais pas trop pour le tls, faut appronfondir, on le configure peut être en amont dans la vm ?
+  #     - hosts:
+  #         - app1.com
+  #       secretName: secret-app-one
+  rules:
+    - host: app1.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: first-app
+                port:
+                  number: 80
+    - host: app2.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: second-app
+                port:
+                  number: 80
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: third-app
+                port:
+                  number: 80
+    defaultBackend: # app3 doit être choisie par défaut si aucun host n'est spécifié
+    service:
+      name: third-three
+      port:
+        number: 80
