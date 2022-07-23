@@ -1,14 +1,38 @@
 # ingress to configure all app
 
+# EXEMPLE DE LA DOC
+
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: simple-fanout-example
+#   annotations:
+#     nginx.ingress.kubernetes.io/rewrite-target: /
+# spec:
+#   rules:
+#   - host: foo.bar.com
+#     http:
+#       paths:
+#       - path: /foo
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: service1
+#             port:
+#               number: 4200
+#       - path: /bar
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: service2
+#             port:
+#               number: 8080
+
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: iot-ingress
 spec:
-  #   tls: => je sais pas trop pour le tls, faut appronfondir, on le configure peut être en amont dans la vm ?
-  #     - hosts:
-  #         - app1.com
-  #       secretName: secret-app-one
   rules:
     - host: app1.com
       http:
@@ -44,3 +68,16 @@ spec:
       name: third-three
       port:
         number: 80
+
+# EXEMPLE DOC DEFAULTBACKEND
+
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: test-ingress
+# spec:
+#   defaultBackend:
+#     service:
+#       name: testsvc
+#       port:
+#         number: 80
