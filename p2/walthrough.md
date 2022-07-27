@@ -26,3 +26,5 @@
 - [package manager for Kubernetes](https://v3.helm.sh/)
 
 - Paul bouwer vraiment bcp de ressources => approfondir
+- [commande à intégrer en cas de souci avec yum mirror etc](https://www.cyberithub.com/solved-failed-to-download-metadata-for-repo-appstream/)
+- [souci en cas de vbguest](https://stackoverflow.com/questions/43492322/vagrant-was-unable-to-mount-virtualbox-shared-folders)

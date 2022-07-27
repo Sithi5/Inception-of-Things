@@ -1,0 +1,38 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANT_BOX = 'centos/8'
+VM_USER = 'iot'
+USER = 'iot'
+VM_NAME_MASTER = 'jcammasS'
+# HOST_PATH = '/home/' + USER + '/'
+HOST_PATH = '/Users/julien/42/IoT/p2'
+# GUEST_PATH_MASTER = '/home/' + VM_USER + '/' + VM_NAME_MASTER
+GUEST_PATH_MASTER = '/Users/julien/42/IoT/p2' + '/' + VM_NAME_MASTER 
+MEM = 4096
+CPUS = 4
+# MASTER_IP = "192.168.42.110"
+MASTER_IP = "192.168.56.0/21"
+
+
+Vagrant.configure("2") do |config|
+  config.vm.box = VAGRANT_BOX
+  config.ssh.insert_key = true
+  config.vm.provision "shell", inline: <<-SHELL
+  yum install -y net-tools
+  sudo yum update
+  sudo yum upgrade
+  SHELL
+  config.vm.provider "virtualbox" do |v|
+    v.memory = MEM
+    v.cpus = CPUS
+  end
+  config.vm.define VM_NAME_MASTER do |master|
+    master.vm.hostname = VM_NAME_MASTER
+    master.vm.synced_folder HOST_PATH, GUEST_PATH_MASTER 
+    master.vm.network "private_network", ip: MASTER_IP, hostname: true
+    # master.vm.provision "shell", inline: p2_script
+  end
+  config.vm.network "forwarded_port", guest: 80, host: 80, protocol: "tcp"
+  config.vm.network "forwarded_port", guest: 6443, host: 6443, protocol: "tcp"
+end

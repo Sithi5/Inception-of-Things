@@ -8,13 +8,18 @@ VM_NAME_MASTER = 'jcammasS'
 VM_NAME_WORKER = 'jcammasSW'
 VM_USER = 'iot'
 USER = 'iot'
-HOST_PATH = '/home/' + USER + '/'
-GUEST_PATH_WORKER = '/home/' + VM_USER + '/' + VM_NAME_WORKER
-GUEST_PATH_MASTER = '/home/' + VM_USER + '/' + VM_NAME_MASTER
+# HOST_PATH = '/home/' + USER + '/'
+HOST_PATH = '/Users/julien/42/IoT/p2'
+# GUEST_PATH_WORKER = '/home/' + VM_USER + '/' + VM_NAME_WORKER
+# GUEST_PATH_MASTER = '/home/' + VM_USER + '/' + VM_NAME_MASTER
+GUEST_PATH_MASTER = '/Users/julien/42/IoT/p2' + '/' + VM_NAME_MASTER 
+GUEST_PATH_WORKER = '/Users/julien/42/IoT/p2' + '/' + VM_NAME_WORKER 
 MEM = 512
 CPUS = 1
-MASTER_IP = "192.168.42.110"
-WORKER_IP = "192.168.42.111"
+# MASTER_IP = "192.168.42.110"
+MASTER_IP = "192.168.56.0/21"
+# WORKER_IP = "192.168.42.111"
+WORKER_IP = "192.168.56.0/22"
 
 Vagrant.configure(2) do |config|
   config.vm.box = VAGRANT_BOX
