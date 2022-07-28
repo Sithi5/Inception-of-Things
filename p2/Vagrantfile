@@ -14,15 +14,26 @@ CPUS = 4
 MASTER_IP = "192.168.42.110"
 # MASTER_IP = "192.168.56.0/21"
 
+p2_script = <<-SHELL
+  curl -sfL https://get.k3s.io \
+    | \
+      sh -s - \
+        server \
+          --write-kubeconfig-mode=644 \
+          --flannel-iface=eth1
+  sudo yum update
+  sudo yum upgrade
+  sudo yum install -y centos-release
+  echo -e "nameserver 8.8.8.8\nnameserver 8.8.4.4" >> /etc/resolv.conf
+  sed "s/127.0.0.1/#{MASTER_IP}/" /etc/rancher/k3s/k3s.yaml > /vagrant/k3s.yaml
+  # kubectl apply -f allow us to activate our deployment set up before 
+  /usr/local/bin/kubectl -n kube-system apply -f /Users/julien/42/IoT/p2/jcammasS/confs
+  sudo yum install -y net-tools
+SHELL
 
 Vagrant.configure("2") do |config|
   config.vm.box = VAGRANT_BOX
   config.ssh.insert_key = true
-  config.vm.provision "shell", inline: <<-SHELL
-  sudo yum update
-  sudo yum upgrade
-  sudo yum install -y net-tools
-  SHELL
   config.vm.provider "virtualbox" do |v|
     v.memory = MEM
     v.cpus = CPUS
@@ -31,7 +42,7 @@ Vagrant.configure("2") do |config|
     master.vm.hostname = VM_NAME_MASTER
     master.vm.synced_folder HOST_PATH, GUEST_PATH_MASTER 
     master.vm.network "private_network", ip: MASTER_IP, hostname: true, virtualbox__intnet: "08net"
-    # master.vm.provision "shell", inline: p2_script
+    master.vm.provision "shell", inline: p2_script
   end
   config.vm.network "forwarded_port", guest: 80, host: 80, protocol: "tcp"
   config.vm.network "forwarded_port", guest: 6443, host: 6443, protocol: "tcp"

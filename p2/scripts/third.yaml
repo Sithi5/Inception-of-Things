@@ -1,4 +1,0 @@
-# yaml to instance and deploy app3
-
-# ip : 192.168.42.110
-# HOST : par défaut pour l'app => à gérer dans l'ingress

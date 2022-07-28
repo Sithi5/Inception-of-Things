@@ -28,3 +28,45 @@
 - Paul bouwer vraiment bcp de ressources => approfondir
 - [commande à intégrer en cas de souci avec yum mirror etc](https://www.cyberithub.com/solved-failed-to-download-metadata-for-repo-appstream/)
 - [souci en cas de vbguest](https://stackoverflow.com/questions/43492322/vagrant-was-unable-to-mount-virtualbox-shared-folders)
+
+       <!-- ingress to configure all app
+      # EXEMPLE DE LA DOC
+
+      # apiVersion: networking.k8s.io/v1
+      # kind: Ingress
+      # metadata:
+      #   name: simple-fanout-example
+      #   annotations:
+      #     nginx.ingress.kubernetes.io/rewrite-target: /
+      # spec:
+      #   rules:
+      #   - host: foo.bar.com
+      #     http:
+      #       paths:
+      #       - path: /foo
+      #         pathType: Prefix
+      #         backend:
+      #           service:
+      #             name: service1
+      #             port:
+      #               number: 4200
+      #       - path: /bar
+      #         pathType: Prefix
+      #         backend:
+      #           service:
+      #             name: service2
+      #             port:
+      #               number: 8080 -->
+
+      <!-- # EXEMPLE DOC DEFAULTBACKEND
+
+      # apiVersion: networking.k8s.io/v1
+      # kind: Ingress
+      # metadata:
+      #   name: test-ingress
+      # spec:
+      #   defaultBackend:
+      #     service:
+      #       name: testsvc
+      #       port:
+      #         number: 80 -->

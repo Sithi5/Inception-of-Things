@@ -1,17 +1,17 @@
-# yaml to instance and deploy app1
+# yaml to instance and deploy app2
 
 # ip : 192.168.42.110
-# HOST : app1.com
+# HOST : app2.com
 
 ---
 # Service
 apiVersion: v1
 kind: Service
 metadata:
-  name: app-one
+  name: second-app
 spec:
   selector:
-    app: app-one
+    app: second-app
   ports:
     - port: 80
       targetPort: 8080
@@ -21,19 +21,19 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-one
+  name: second-app
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
-      app: app-one
+      app: second-app
   template:
     metadata:
       labels:
-        app: app-one
+        app: second-app
     spec:
       containers:
-        - name: app-one
+        - name: second-app
           # https://hub.docker.com/r/paulbouwer/hello-kubernetes
           image: paulbouwer/hello-kubernetes:1.10
           ports:
@@ -42,4 +42,4 @@ spec:
           # https://github.com/paulbouwer/hello-kubernetes/blob/6e9ac0e273bfdaf1f9b78501e8b046be00d44eb3/src/app/server.js#L19
           env:
             - name: MESSAGE
-              value: "Hello from app1."
+              value: "Hello from app2."
