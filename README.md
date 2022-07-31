@@ -23,8 +23,8 @@ specific rules.
 
 This project is divided into three parts to be done in the order indicated:
 
-• Part 1: K3s with Vagrant  
-• Part 2: K3s with three simple applications  
+• Part 1: K3s with Vagrant
+• Part 2: K3s with three simple applications
 • Part 3: K3d with Argo CD
 
 ## Configuration globale et explication
@@ -48,15 +48,15 @@ This project is divided into three parts to be done in the order indicated:
         - restart le service sshd
         - lancer ifconfig et taper dans terminal ssh user@
 
- setup depuis ssh:  
+ setup depuis ssh:
 ```bash
-        scp install_docker.sh user@ip:/home/user/  # modifier path 
-        sh install_docker.sh   
-        sudo ufw disable  
-        sudo apt install qemu qemu-kvm libvirt-clients libvirt-daemon-system virtinst bridge-utils  
-        sudo systemctl enable libvirtd  
-        sudo systemctl start libvirtd  
-```   
+        scp install_docker.sh user@ip:/home/user/  # modifier path
+        sh install_docker.sh
+        sudo ufw disable
+        sudo apt install qemu qemu-kvm libvirt-clients libvirt-daemon-system virtinst bridge-utils
+        sudo systemctl enable libvirtd
+        sudo systemctl start libvirtd
+```
 **k3s :**
 
     K3s est une distribution Kubernetes légère créée par Rancher Labs,
@@ -77,7 +77,7 @@ This project is divided into three parts to be done in the order indicated:
     K3s est setup directement avec kubectl pour pourvoir gérer facilement les clusters.
 
 **cluster :**
-    
+
 
 **Vagrant :**
 
@@ -104,6 +104,21 @@ This project is divided into three parts to be done in the order indicated:
     Il identifie les applications déployées avec un état en direct qui s'écarte de l'état souhaité comme OutOfSync.
 
 - [Introduction ArgoCD](https://codefresh.io/learn/argo-cd/#:~:text=Argo%20CD%20is%20a%20Kubernetes%20controller%2C%20responsible%20for%20continuously%20monitoring,the%20desired%20state%20as%20OutOfSync.)
+
+## Usefull commands
+
+### Virtualbox
+
+```
+> vboxmanage --version # Get vbox version
+> VBoxManage list vms # List vm
+"vagrant-test_default_1659277052159_64166" {vm-name}
+
+> VBoxManage unregistervm vm-name -delete # Delete vm
+> VBoxManage createvm --name "testing" --ostype "Debian_64" --register --basefolder `pwd` # Create a machine with VBoxManage
+> VBoxManage modifyvm mabouce_debian_11_bullseye64 --nested-hw-virt on # Allow for nested VM
+```
+
 
 ## Resources
 - [k3s documentations](https://blog.filador.fr/a-la-decouverte-de-k3s/#:~:text=Fonctionnement&text=Cela%20va%20d%C3%A9marrer%20le%20master,%2Fserver%2Fnode%2Dtoken%20.&text=Et%20votre%20cluster%20K3S%20est%20op%C3%A9rationnel.)
