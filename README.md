@@ -112,11 +112,17 @@ This project is divided into three parts to be done in the order indicated:
 ```
 > vboxmanage --version # Get vbox version
 > VBoxManage list vms # List vm
-"vagrant-test_default_1659277052159_64166" {vm-name}
+"vm_name" {vm-uuid}
+
+> vboxmanage startvm <name or UUID> # start a vm
+> VBoxManage controlvm <vm> savestate # Stop vm
 
 > VBoxManage unregistervm vm-name -delete # Delete vm
 > VBoxManage createvm --name "testing" --ostype "Debian_64" --register --basefolder `pwd` # Create a machine with VBoxManage
 > VBoxManage modifyvm mabouce_debian_11_bullseye64 --nested-hw-virt on # Allow for nested VM
+
+> service --status-all # Check all service status
+> sudo service virtualbox restart # restart vbox
 ```
 
 
