@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-BOX = "centos/7"
+BOX = "centos/stream8"
 # BOX_URL = "https://app.vagrantup.com/centos/boxes/8/versions/2011.0/providers/virtualbox.box"
 BOX_AUTO_UPDATE = false
 VM_USER = 'iot'
@@ -23,6 +23,7 @@ SHELL
 
 Vagrant.configure("2") do |config|
   config.vm.box = BOX
+  config.vm.box_url = "https://app.vagrantup.com/centos/boxes/stream8/versions/20210210.0/providers/virtualbox.box"
   config.vm.box_check_update = false
   config.vbguest.installer_options = { allow_kernel_upgrade: true }
   config.ssh.insert_key = false 
