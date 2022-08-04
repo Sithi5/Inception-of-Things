@@ -2,7 +2,6 @@
 # vi: set ft=ruby :
 
 BOX = "centos/stream8"
-# BOX_URL = "https://app.vagrantup.com/centos/boxes/8/versions/2011.0/providers/virtualbox.box"
 BOX_AUTO_UPDATE = false
 VM_USER = 'iot'
 USER = 'iot'
@@ -41,6 +40,6 @@ Vagrant.configure("2") do |config|
             v.name = VM_NAME_MASTER 
     end
   end
-  # config.vm.network "forwarded_port", guest: 80, host: 80, protocol: "tcp"
-  # config.vm.network "forwarded_port", guest: 6443, host: 6443, protocol: "tcp"
+  config.vm.network "forwarded_port", guest: 80, host: 80, protocol: "tcp"
+  config.vm.network "forwarded_port", guest: 6443, host: 6443, protocol: "tcp"
 end
