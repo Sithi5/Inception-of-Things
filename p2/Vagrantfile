@@ -33,7 +33,7 @@ Vagrant.configure("2") do |config|
   config.vm.define VM_NAME_MASTER do |master|
     master.vm.hostname = VM_NAME_MASTER
     master.vm.synced_folder HOST_PATH, GUEST_PATH_MASTER 
-    master.vm.network "private_network", ip: MASTER_IP, hostname: true, virtualbox__intnet: "08net"
+    master.vm.network "private_network", ip: MASTER_IP, hostname: false, virtualbox__intnet: "08net"
     master.vm.provision "shell", privileged: true, path: "scripts/setup.sh", args: [MASTER_IP]
   end
   config.vm.network "forwarded_port", guest: 80, host: 80, protocol: "tcp"
