@@ -10,7 +10,9 @@ curl -sfL https://get.k3s.io |  sh -
 echo "[TOOLS] : install ifconfig tool ..."
 sudo yum install net-tools -y
 
-echo "[APP-1] : deploying..." 
+echo "[APP-1] : deploying..."
+
+/usr/local/bin/kubectl create configmap app1-html --from-file /Users/julien/42/IoT/p2/jcammasS/confs/app1/index.html
 /usr/local/bin/kubectl  apply -f /Users/julien/42/IoT/p2/jcammasS/confs/app1/app1.deployment.yaml
 /usr/local/bin/kubectl  apply -f /Users/julien/42/IoT/p2/jcammasS/confs/app1/app1.service.yaml
 /usr/local/bin/kubectl  apply -f /Users/julien/42/IoT/p2/jcammasS/confs/app1/app1.ingress.yaml

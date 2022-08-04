@@ -1,26 +1,28 @@
-# Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: first-app
+  name: app1
+  labels:
+    app: app1
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: first-app
+      app: app1
   template:
     metadata:
       labels:
-        app: first-app
+        app: app1
     spec:
       containers:
-        - name: first-app
-          # https://hub.docker.com/r/paulbouwer/hello-kubernetes
-          image: paulbouwer/hello-kubernetes:1.10
+        - name: app1
+          image: nginx:1.14.2
           ports:
-            - containerPort: 8080
-          imagePullPolicy: Always
-          # https://github.com/paulbouwer/hello-kubernetes/blob/6e9ac0e273bfdaf1f9b78501e8b046be00d44eb3/src/app/server.js#L19
-          env:
-            - name: MESSAGE
-              value: "Hello from app1."
+            - containerPort: 80
+          volumeMounts:
+            - name: html-volume
+              mountPath: /usr/share/nginx/html
+      volumes:
+        - name: html-volume
+          configMap:
+            name: app1-html
