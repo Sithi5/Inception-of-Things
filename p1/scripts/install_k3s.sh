@@ -15,7 +15,6 @@ cyanfonce='\e[0;36m'
 cyanclair='\e[1;36m'
 grisclair='\e[0;37m'
 blanc='\e[1;37m'
-
 neutre='\e[0;m'
 
 echo -e "${vertfonce}DOWNLOADING K3S...${neutre}"
@@ -25,7 +24,7 @@ echo -e "${vertfonce}Setting up server and worker server vms...${neutre}"
 
 vagrant up
 
-sudo sh -c 'echo "192.168.42.110  mabouceS\n192.168.42.111  mabouceSW\n" >> /etc/hosts'
+sudo sh -c 'echo "192.168.42.110  mabouceS\n192.168.42.111  maginistSW\n" >> /etc/hosts'
 
 echo -e "${vertfonce}Setting up k3s...${neutre}"
 
