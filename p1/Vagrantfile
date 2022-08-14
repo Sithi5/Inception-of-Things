@@ -1,14 +1,14 @@
-VAGRANT_BOX = 'centos/7'
+VAGRANT_BOX = "centos/stream8"
 
 VM_NAME_MASTER = 'mabouceS'
 VM_NAME_WORKER = 'maginistSW'
 
-HOST_PATH = '/home/vagrant/synced_folder/p1'
+HOST_PATH = 'C:\Work\deployment\Inception-of-Things\p1'
 
 GUEST_PATH_MASTER = HOST_PATH + '/' + VM_NAME_MASTER
 GUEST_PATH_WORKER = HOST_PATH + '/' + VM_NAME_WORKER
-MEM = 2048
-CPUS = 2
+MEM = 1024
+CPUS = 1
 MASTER_IP = "192.168.42.110"
 WORKER_IP = "192.168.42.111"
 
@@ -16,8 +16,8 @@ Vagrant.configure(2) do |config|
   config.vm.box = VAGRANT_BOX
   config.ssh.insert_key = true
   config.vm.provision "shell", inline: <<-SHELL
-  yum update
-  yum upgrade
+  yum update -y
+  yum upgrade -y
   SHELL
   config.vm.provider "virtualbox" do |v|
     v.memory = MEM
@@ -25,7 +25,6 @@ Vagrant.configure(2) do |config|
     v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
     v.gui = false
-
   end
 
   config.vm.define VM_NAME_MASTER do |master|
