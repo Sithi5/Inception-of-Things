@@ -35,28 +35,21 @@ This project is divided into three parts to be done in the order indicated:
     création de la vm:
         - installer virtualbox
         - appuyer sur new :
-        - créer la vm avec linux, ubuntu, 2048 de mémoire vive, 30 GB de stockage sur le
+        - créer la vm avec linux, ubuntu, 4096 de mémoire vive, 40 GB de stockage sur le
          disque dur virtualbox, effacer le disque, avant de lancer la vm, mettez 4 cpu dans settings setup linux, reboot et taper entrer
         - faire l'update et l'upgrade des packages disponibles
-        - installer les packages du fichier requirements.txt
-        - lancer la commande : VBoxManage modifyvm vm-name --nested-hw-virt on
+        - lancer la commande dans votre terminal de pc pour la vm Host : VBoxManage modifyvm vm-name --nested-hw-virt on
+        - installer les additions guests sur la vm Host
         !!! très important, virtualisation obligatoire !!!
     connection ssh a la vm:
         - créer une nouvelle connexion sur virtualbox pour 42 en NAT sinon le proxy bloque la connexion en bridge
         - mettre la première connexion de la vm en bridge connexion sur virtualbox
-        - lancer la vm
-        - restart le service sshd
-        - lancer ifconfig et taper dans terminal ssh user@
+        - sudo apt install net-tools
+        - sudo apt install openssh-server
+        - sudo service sshd restart
+        - lancer ifconfig et taper dans terminal ssh user@192.168.0.0
+        - suivre les walktrought
 
- setup depuis ssh:
-```bash
-        scp install_docker.sh user@ip:/home/user/  # modifier path
-        sh install_docker.sh
-        sudo ufw disable
-        sudo apt install qemu qemu-kvm libvirt-clients libvirt-daemon-system virtinst bridge-utils
-        sudo systemctl enable libvirtd
-        sudo systemctl start libvirtd
-```
 **k3s :**
 
     K3s est une distribution Kubernetes légère créée par Rancher Labs,

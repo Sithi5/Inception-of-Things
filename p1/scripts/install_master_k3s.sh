@@ -5,7 +5,7 @@ DARK_GREEN='\e[0;32m'
 END='\e[0;m'
 
 echo -e "${DARK_GREEN}INSTALL K3S MASTER NODE...${END}"
-curl -sfL https://get.k3s.io | sh - -s --flannel-iface=eth1 --write-kubeconfig-mode 644
+curl -sfL https://get.k3s.io/ | sh -s -server --flannel-iface=eth1 --write-kubeconfig-mode 644
 
 echo "[TOOLS] : install ifconfig tool ..."
 sudo yum install net-tools -y
