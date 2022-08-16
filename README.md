@@ -100,6 +100,14 @@ This project is divided into three parts to be done in the order indicated:
 
 ## Usefull commands
 
+### Kubectl
+
+```
+> kubectl get nodes # Show nodes
+NAME       STATUS   ROLES                  AGE    VERSION
+mabouces   Ready    control-plane,master   2d1h   v1.24.3+k3s1
+```
+
 ### Virtualbox
 
 ```
