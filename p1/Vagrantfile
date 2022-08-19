@@ -1,116 +1,49 @@
-# VAGRANT_BOX = "centos/stream8"
-
-# VM_NAME_MASTER = 'mabouceS'
-# VM_NAME_WORKER = 'mabouceSW'
-
-# MEM = 1024
-# CPUS = 1
-# MASTER_IP = "192.168.42.110"a
-# WORKER_IP = "192.168.42.111"
-
-# $DISABLE_FIREWALL_SCRIPT = <<-SHELL
-#   sudo systemctl disable --now firewalld
-# SHELL
-
-
-# Vagrant.configure(2) do |config|
-#   config.vm.box = VAGRANT_BOX
-
-#   config.vbguest.installer_options = { allow_kernel_upgrade: true }
-#   config.vm.provision "shell", inline: $DISABLE_FIREWALL_SCRIPT 
-#   config.vm.provider "virtualbox" do |v|
-#     v.memory = MEM
-#     v.cpus = CPUS
-#     v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
-#     v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
-#     v.gui = false
-#   end
-
-#   config.vm.define VM_NAME_MASTER do |master|
-#     master.vm.hostname = VM_NAME_MASTER
-#     master.vm.synced_folder "./", "/home/vagrant/synced_folder", type: "virtualbox"
-#     master.vm.network "private_network", ip: MASTER_IP, hostname: false, virtualbox__intnet: "08net"
-#     master.vm.provision "shell", privileged: true, path: "./scripts/install_master_k3s.sh", args: [MASTER_IP]
-#     master.vm.provider "virtualbox" do |v|
-#       v.name = VM_NAME_MASTER
-#     end
-#   end
-
-#   config.vm.define VM_NAME_WORKER do |worker|
-#     worker.vm.hostname = VM_NAME_WORKER
-#     worker.vm.synced_folder "./", "/home/vagrant/synced_folder", type: "virtualbox"
-#     worker.vm.network "private_network", ip: WORKER_IP, hostname: false, virtualbox__intnet: "08net"
-#     worker.vm.provision "shell", privileged: true, path: "./scripts/install_worker_k3s.sh", args: [MASTER_IP, WORKER_IP]
-#     worker.vm.provider "virtualbox" do |v|
-#       v.name = VM_NAME_WORKER
-#     end
-#   end
-# end
-
-# # hostname: false, virtualbox__intnet: "08net"
-
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+VAGRANT_BOX = "centos/stream8"
 
+VM_NAME_SERVER = 'jcammasS'
+VM_NAME_AGENT = 'jcammasSW'
 
-
-##### BASE DE COMPARAISON ######
-
-# A FAIRE 
-
-# - isoler les scripts
-# - documenter la connexion de l'agent au master
-
-$master_script = <<-SCRIPT
-mkdir -p /root/.ssh
-cat /tmp/id_rsa.pub >> /root/.ssh/authorized_keys
-curl -sfL https://get.k3s.io | sh -s - server \
-    --write-kubeconfig-mode 644 \
-    --flannel-iface=eth1
-SCRIPT
-
-$worker_script = <<-SCRIPT
-mkdir -p /root/.ssh
-mv /tmp/id_rsa  /root/.ssh
-scp -o StrictHostKeyChecking=no root@192.168.42.110:/var/lib/rancher/k3s/server/token /tmp/token
-curl -sfL https://get.k3s.io | sh -s - agent \
-    --server "https://192.168.42.110:6443" \
-    --token-file "/tmp/token" \
-    --flannel-iface=eth1
-SCRIPT
+MEM = 1024
+CPUS = 1
+SERVER_IP = "192.168.42.110"
+AGENT_IP = "192.168.42.111"
 
 Vagrant.configure("2") do |config|
-  # common config
-  config.vm.box = "centos/stream8"
-  config.vbguest.installer_options = { allow_kernel_upgrade: true }
+  # configuration globale de nos VM
+  config.vm.box = VAGRANT_BOX 
+  config.vbguest.installer_options = { allow_kernel_upgrade: true } # lié à notre OS et au vb_guest => important
   config.vm.provider "virtualbox" do |v|
-    v.cpus = 1
-    v.memory = 1024
+    v.cpus = CPUS
+    v.memory = MEM
     v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
     v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
   end
   config.vm.provision "shell", inline: "yum install -y net-tools" # install ifconfig
 
-  # master config
-  config.vm.define "jcammasS" do |master|
-    master.vm.hostname = "jcammasS"
-    master.vm.network "private_network", ip: "192.168.42.110", hostname: false, virtualbox__intnet: "08net"
+  # configuration de notre server => script server
+  config.vm.define VM_NAME_SERVER do |master|
+    master.vm.hostname = VM_NAME_SERVER
+    master.vm.synced_folder "./", "/home/vagrant/synced_folder", type: "virtualbox"
+    master.vm.network "private_network", ip: SERVER_IP, hostname: true, virtualbox__intnet: "08net"
     master.vm.provider "virtualbox" do |v|
-      v.customize ["modifyvm", :id, "--name", "jcammasS"]
+      v.name = VM_NAME_SERVER
     end
     master.vm.provision "file", source: "~/.ssh/id_rsa.pub", destination: "/tmp/id_rsa.pub"
-    master.vm.provision "shell", inline: $master_script
+    master.vm.provision "shell", privileged: true, path: "./scripts/install_master_k3s.sh"
   end
 
-  # worker config
-  config.vm.define "jcammasSW" do |worker|
-    worker.vm.hostname = "jcammasSW"
-    worker.vm.network "private_network", ip: "192.168.42.111", hostname: false, virtualbox__intnet: "08net"
+  # configuration de notre worker => script agent
+  config.vm.define VM_NAME_AGENT do |worker|
+    worker.vm.hostname = VM_NAME_AGENT
+    worker.vm.synced_folder "./", "/home/vagrant/synced_folder", type: "virtualbox"
+    worker.vm.network "private_network", ip: AGENT_IP, hostname: true, virtualbox__intnet: "08net"
     worker.vm.provider "virtualbox" do |v|
-      v.customize ["modifyvm", :id, "--name", "jcammasSW"]
+      v.name = VM_NAME_AGENT
     end
     config.vm.provision "file", source: "~/.ssh/id_rsa", destination: "/tmp/id_rsa"
-    worker.vm.provision "shell", inline: $worker_script
+    worker.vm.provision "shell", privileged: true, path: "./scripts/install_worker_k3s.sh" 
   end
 end

@@ -1,18 +1,22 @@
 # #!/bin/bash
 
-# DARK_GREEN='\e[0;32m'
+DARK_GREEN='\e[0;32m'
 
-# END='\e[0;m'
+END='\e[0;m'
 
-# echo "[TOOLS] : install ifconfig tool..."
-# sudo yum install net-tools -y
+# https://k3s.io/
 
-# echo -e "${DARK_GREEN}INSTALL K3S MASTER NODE...${END}"
-# curl -sfL https://get.k3s.io | sh -s - --flannel-iface=eth1 --write-kubeconfig-mode 644 --token K10e2363279b55b20748e026d7048d79a52d2aaad024b296fd5b42b9433aa0c9af9::server:2da393e82f06f99f806827f2879e30a9
+echo "${DARK_GREEN}[TOOLS] : TOKEN MANAGEMENT...${END}"
+mkdir -p /root/.ssh
+cat /tmp/id_rsa.pub >> /root/.ssh/authorized_keys
+# on vient créer un espace dans lequel on va pouvoir générer un token => token récupérer et copier via la commande scp et
+# une connexion ssh par la suite dans le script de l'agent
 
+echo -e "${DARK_GREEN}INSTALL K3S MASTER NODE...${END}"
+curl -sfL https://get.k3s.io | sh -s - server --write-kubeconfig-mode 644 --flannel-iface=eth1
+# on installe k3s sur cette vm mais en mode server pour permettre à un potentiel agent de s'y connecter
 
-# echo -e "${DARK_GREEN}[PRINT] : DISPLAY K3S STATUS ...${END}"
-# systemctl status k3s
+echo -e "${DARK_GREEN}[PRINT] : DISPLAY K3S STATUS ...${END}" # je ne sais pas pourquoi mais ça ne fonctionne pas pdt le log, je le laisse pour conserver la commande opur check si k3s est bien installé
+# k3s check-config
 
-# echo -e "${DARK_GREEN}[PRINT] : DISPLAY K3S MASTER NODE TOKEN...${END}"
-# sudo cat /var/lib/rancher/k3s/server/node-token
+echo "[machine : $(hostname)] has been setup succefully!" # on vient vérifier directement pendant le log si le hostname est correct

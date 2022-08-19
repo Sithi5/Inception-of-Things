@@ -1,21 +1,24 @@
 # #!/bin/bash
 
-# DARK_GREEN='\e[0;32m'
+# https://rancher.com/docs/k3s/latest/en/installation/install-options/agent-config/
 
-# END='\e[0;m'
+DARK_GREEN='\e[0;32m'
 
-# MASTER_NODE_TOKEN=K10e2363279b55b20748e026d7048d79a52d2aaad024b296fd5b42b9433aa0c9af9::server:2da393e82f06f99f806827f2879e30a9
+END='\e[0;m'
 
-# echo "[TOOLS] : install ifconfig tool ..."
-# sudo yum install net-tools -y
+echo "${DARK_GREEN}[TOOLS] : TOKEN MANAGEMENT...${END}"
+mkdir -p /root/.ssh
+mv /tmp/id_rsa  /root/.ssh
+scp -o StrictHostKeyChecking=no root@192.168.42.110:/var/lib/rancher/k3s/server/token /tmp/token
+# https://technique.arscenic.org/transfert-de-donnees-entre/article/scp-transfert-de-fichier-a-travers
+# https://linuxhint.com/ssh-stricthostkeychecking/
 
-# echo -e "${DARK_GREEN}INSTALL K3S WORKER NODE...${END}"
-# curl -sfL https://get.k3s.io | K3S_URL=https://192.168.42.110:6443 K3S_TOKEN=${MASTER_NODE_TOKEN} sh -
+echo -e "${DARK_GREEN}INSTALL K3S WORKER NODE...${END}"
+curl -sfL https://get.k3s.io | sh -s - agent --server "https://192.168.42.110:6443" --token-file "/tmp/token" --flannel-iface=eth1
+# on installe k3s sur cette vm mais en mode agent et on le connecte à notre cluster via son adresse et
+# on vient checker via le token généré auparavant si la connexion est possible
 
-# echo -e "${DARK_GREEN}START K3S AGENT...${END}"
-# systemctl enable --now k3s-agent
+echo -e "${DARK_GREEN}CHECK SERVICE...${END}" # je ne sais pas pourquoi mais ça ne fonctionne pas pdt le log, je le laisse pour conserver la commande opur check si k3s est bien installé
+# k3s check-config
 
-
-
-# echo -e "${DARK_GREEN}CHECK SERVICE...${END}"
-# systemctl status k3s
+echo "[machine : $(hostname)] has been setup succefully!" # on vient vérifier directement pendant le log si le hostname est correct
