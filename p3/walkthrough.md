@@ -22,5 +22,8 @@
 
 #### Ressources
 
+- [install kubectl mac os](https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/)
+- [minikube link if needed](https://minikube.sigs.k8s.io/docs/start/)
+- [k3d & k3s cluster](https://www.linkedin.com/pulse/setup-your-personal-kubernetes-cluster-k3s-k3d-suren-raju/)
 - [app deploy with argo cd and k3d](https://yashguptaa.medium.com/application-deploy-to-kubernetes-with-argo-cd-and-k3d-8e29cf4f83ee)
 - [same](https://www.sokube.ch/post/gitops-on-a-laptop-with-k3d-and-argocd) => suivre ce tuto là
