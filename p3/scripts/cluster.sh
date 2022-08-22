@@ -12,6 +12,7 @@ sudo kubectl create namespace dev
 
 
 # supprimer install.yaml si il y est, il sera réinstallé avec la commande ci-dessous
+kubectl delete -f install.yaml
 # install argocd
 curl -OL https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
