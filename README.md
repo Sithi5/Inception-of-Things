@@ -42,12 +42,12 @@ This project is divided into three parts to be done in the order indicated:
         - installer les additions guests sur la vm Host
         !!! très important, virtualisation obligatoire !!!
     connection ssh a la vm:
-        - créer une nouvelle connexion sur virtualbox pour 42 en NAT sinon le proxy bloque la connexion en bridge
-        - mettre la première connexion de la vm en bridge connexion sur virtualbox
+        - creer un host dans virtualbox en allant dans Files > Host network manager > create
+        - mettre la première connexion de la vm en host connexion sur virtualbox
         - sudo apt install net-tools
         - sudo apt install openssh-server
         - sudo service sshd restart
-        - lancer ifconfig et taper dans terminal ssh user@192.168.0.0
+        - lancer ifconfig et taper dans terminal ssh user@ip
         - suivre les walktrought
 
 **k3s :**

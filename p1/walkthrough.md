@@ -1,4 +1,4 @@
-<!-- #### Partie 1 : K3s with Vagrant
+#### Partie 1 : K3s with Vagrant
 
 - Ce qu'on doit faire :
 
@@ -34,7 +34,7 @@ sh script/install_vm.sh
 
 ```
 
-<!-- On lance le script install_k3s.sh et il va tout faire, fin.
+On lance le script install_vm.sh et il va tout faire, fin.
 Installer les additionnals guest avant sur la vm quand même.
 
 #### Ressources
