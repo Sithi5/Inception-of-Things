@@ -27,11 +27,11 @@ Vous devez installer K3s sur chaque machine et les setup grace a kubectl:
 dependencies:
 
 ```bash
-mettre la vm en bridge
+mettre la vm en bridge si on veut se ssh # sinon passer par shared folder pour récupérer le dossier Inception
 sudo apt install openssh-server
 sudo service sshd restart
 sh script/install_vm.sh
-
+vagrant up
 ```
 
 On lance le script install_vm.sh et il va tout faire, fin.
