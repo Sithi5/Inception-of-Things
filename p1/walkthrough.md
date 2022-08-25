@@ -1,4 +1,4 @@
-<!-- #### Partie 1 : K3s with Vagrant
+#### Partie 1 : K3s with Vagrant
 
 - Ce qu'on doit faire :
 
@@ -24,18 +24,7 @@ Vous devez installer K3s sur chaque machine et les setup grace a kubectl:
 
 #### Résolution:
 
-dependencies:
-
-```bash
-mettre la vm en bridge
-sudo apt install openssh-server
-sudo service sshd restart
-sh script/install_vm.sh
-
-```
-
-<!-- On lance le script install_k3s.sh et il va tout faire, fin.
-Installer les additionnals guest avant sur la vm quand même.
+On lance le script install_vm.sh pour lancer le vagrant, vagrant up et c'est fini.
 
 #### Ressources
 
@@ -47,4 +36,4 @@ Installer les additionnals guest avant sur la vm quand même.
 
 - Paul bouwer vraiment bcp de ressources => approfondir
 - [commande à intégrer en cas de souci avec yum mirror etc](https://www.cyberithub.com/solved-failed-to-download-metadata-for-repo-appstream/)
-- [souci en cas de vbguest](https://stackoverflow.com/questions/43492322/vagrant-was-unable-to-mount-virtualbox-shared-folders) -->
+- [souci en cas de vbguest](https://stackoverflow.com/questions/43492322/vagrant-was-unable-to-mount-virtualbox-shared-folders)

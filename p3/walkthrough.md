@@ -36,12 +36,9 @@
 
   check that Argo CD is installed and configured => y accéder via http://localhost:8080/argocd
 
-  You can uninstall argocd and k3d cluster with those command:
+  You can uninstall argocd and k3d cluster with this command:
 
-  sudo kubectl delete -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-  sudo kubectl delete namespace dev
-  sudo kubectl delete namespace argocd
-  sudo k3d cluster delete 
+  - sh cleaning_script.sh in folder scripts
 
 #### Ressources
 
