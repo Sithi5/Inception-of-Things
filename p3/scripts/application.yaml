@@ -7,8 +7,8 @@ metadata:
 spec:
   project: argocdrocks-project
   source:
-    repoURL: https://github.com/sokube/argocd-rocks.git # => changer le répo git
-    targetRevision: featurebranch_1
+    repoURL: https://github.com/jcammas/jcammas-argocd.git # => changer le répo git
+    targetRevision: HEAD
     path: app
     directory:
       recurse: true
