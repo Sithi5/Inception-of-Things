@@ -21,11 +21,11 @@ sudo kubectl create namespace dev
 
 echo "${DARK_GREEN}[TOOLS] : DELETE INSTALL.YAML...${END}"
 # supprimer install.yaml si il y est, il sera réinstallé avec la commande ci-dessous
-kubectl delete -f install.yaml
+# kubectl delete -f install.yaml
 
 echo "${DARK_GREEN}[TOOLS] : INSTALL ARGOCD...${END}"
 # install argocd
-curl -OL https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+# curl -OL https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
 # add the - --insecure options => cf assets/modif.png (jsp comment on va faire ça en ligne de commande .. à voir si c'est obligatoire ou non) ligne 10185, search ARGOCD_SERVER_INSECURE
 
@@ -33,7 +33,7 @@ curl -OL https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/ins
 # run ça sur le namespaces argocd créée en amont avec kubectl
 
 echo "${DARK_GREEN}[TOOLS] : APLLY INSTALL.YAML (ARGOCD FILE CONFIGURATION)...${END}"
-sudo kubectl apply -n argocd -f install.yaml # plus tard mettre à jour le chemin de install.yaml
+sudo kubectl apply -n argocd -f ../confs/install.yaml # plus tard mettre à jour le chemin de install.yaml
 
 echo "${DARK_GREEN}[TOOLS] : WAIT FOR PODS TO CONTINUE...${END}"
 # check if pods are ready => if not, waiting for it
@@ -42,7 +42,7 @@ sudo kubectl wait -n argocd --for=condition=Ready pods --all
 echo "${DARK_GREEN}[TOOLS] : INSTALL INGRESS...${END}"
 # Create an Ingress to redirect /argocd to the argocd main service
 # cf ingress.yaml
-sudo kubectl apply -f ingress.yaml -n argocd
+sudo kubectl apply -f ../confs/ingress.yaml -n argocd
 
 # Open a browser on
 # http://localhost:8080/argocd
@@ -57,3 +57,9 @@ sudo kubectl -n argocd patch secret argocd-secret \
     "admin.password": "$2y$12$Kg4H0rLL/RVrWUVhj6ykeO3Ei/YqbGaqp.jAtzzUSJdYWT6LUh/n6",
     "admin.passwordMtime": "'$(date +%FT%T%Z)'"
   }}'
+
+echo "${DARK_GREEN}[TOOLS] : APPLY PROJECT...${END}"
+sudo kubectl apply -f ../confs/project.yaml -n argocd
+
+echo "${DARK_GREEN}[TOOLS] : APPLY APP...${END}"
+sudo kubectl apply -f ../confs/application.yaml -n argocd
