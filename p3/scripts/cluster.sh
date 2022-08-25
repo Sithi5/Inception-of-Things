@@ -27,7 +27,7 @@ echo "${DARK_GREEN}[TOOLS] : INSTALL ARGOCD...${END}"
 # install argocd
 curl -OL https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
-# add the --insecure option => cf assets/modif.png (jsp comment on va faire ça en ligne de commande .. à voir si c'est obligatoire ou non)
+# add the - --insecure options => cf assets/modif.png (jsp comment on va faire ça en ligne de commande .. à voir si c'est obligatoire ou non) ligne 10185, search ARGOCD_SERVER_INSECURE
 
 # Once done, create the argocd namespace and install ArgoCD with the modified script
 # run ça sur le namespaces argocd créée en amont avec kubectl
