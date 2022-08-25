@@ -1,0 +1,1 @@
+sudo cluster create namespace gitlab

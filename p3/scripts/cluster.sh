@@ -2,8 +2,8 @@
 # https://www.sokube.ch/post/gitops-on-a-laptop-with-k3d-and-argocd => ce tuto est incroyable il faut le suivre en parallèle de mes explications ici
 
 
+# colors
 DARK_GREEN='\e[0;32m'
-
 END='\e[0;m'
 
 echo "${DARK_GREEN}[TOOLS] : CREATE CLUSTER WITH K3D...${END}"

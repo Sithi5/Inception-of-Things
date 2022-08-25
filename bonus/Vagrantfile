@@ -1,0 +1,32 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANT_BOX = "ubuntu/bionic64"
+VM_NAME_SERVER = "jcammas-gitlab"
+MEM = 6144
+CPUS = 4
+SERVER_IP = "192.168.42.110"
+
+Vagrant.configure("2") do |config|
+  # configuration globale de nos VM
+  config.vm.box = VAGRANT_BOX 
+  config.vbguest.installer_options = { allow_kernel_upgrade: true } # lié à notre OS et au vb_guest => important
+  config.vm.provider "virtualbox" do |v|
+    v.cpus = CPUS
+    v.memory = MEM
+    v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+    v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+  end
+  config.vm.provision "shell", inline: "sudo apt install -y net-tools" # install ifconfig
+
+  # configuration de notre server => script server
+  config.vm.define VM_NAME_SERVER do |gitlab|
+    gitlab.vm.hostname = VM_NAME_SERVER
+    gitlab.vm.synced_folder "./", "/home/vagrant/synced_folder", type: "virtualbox"
+    gitlab.vm.network "private_network", ip: SERVER_IP, hostname: true, virtualbox__intnet: "08net"
+    gitlab.vm.provider "virtualbox" do |v|
+      v.name = VM_NAME_SERVER
+    end
+    gitlab.vm.provision "shell", privileged: true, path: "./scripts/install_gitlab.sh"
+  end
+end

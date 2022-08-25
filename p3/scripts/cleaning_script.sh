@@ -1,7 +1,7 @@
 #!/bin/sh
 
+# colors
 DARK_GREEN='\e[0;32m'
-
 END='\e[0;m'
 
 echo "${DARK_GREEN}[UNINSTALL] : UBUNTU VERSION...${END}"
