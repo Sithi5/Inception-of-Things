@@ -3,7 +3,7 @@
 
 VAGRANT_BOX = "ubuntu/bionic64"
 VM_NAME_SERVER = "jcammas-gitlab"
-MEM = 6144
+MEM = 4096
 CPUS = 4
 SERVER_IP = "192.168.42.110"
 
@@ -11,6 +11,7 @@ Vagrant.configure("2") do |config|
   # configuration globale de nos VM
   config.vm.box = VAGRANT_BOX 
   config.vbguest.installer_options = { allow_kernel_upgrade: true } # lié à notre OS et au vb_guest => important
+  config.vm.network "forwarded_port", guest: 1515, host: 1515, protocol: "tcp"
   config.vm.provider "virtualbox" do |v|
     v.cpus = CPUS
     v.memory = MEM
@@ -23,7 +24,6 @@ Vagrant.configure("2") do |config|
   config.vm.define VM_NAME_SERVER do |gitlab|
     gitlab.vm.hostname = VM_NAME_SERVER
     gitlab.vm.synced_folder "./", "/home/vagrant/synced_folder", type: "virtualbox"
-    gitlab.vm.network "private_network", ip: SERVER_IP, hostname: true, virtualbox__intnet: "08net"
     gitlab.vm.provider "virtualbox" do |v|
       v.name = VM_NAME_SERVER
     end
