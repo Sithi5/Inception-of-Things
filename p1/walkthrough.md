@@ -22,6 +22,15 @@ Vous devez installer K3s sur chaque machine et les setup grace a kubectl:
 - Dans la première (Server), en mode contrôleur.
 - Dans la seconde (ServerWorker), en mode agent
 
+mettre la vm en bridge si on veut se ssh # sinon passer par shared folder pour récupérer le dossier Inception
+sudo apt install openssh-server
+sudo service sshd restart
+sh script/install_vm.sh
+vagrant up
+
+On lance le script install_vm.sh et il va tout faire, fin.
+Installer les additionnals guest avant sur la vm quand même.
+
 #### Résolution:
 
 On lance le script install_vm.sh pour lancer le vagrant, vagrant up et c'est fini.
@@ -31,6 +40,7 @@ On lance le script install_vm.sh pour lancer le vagrant, vagrant up et c'est fin
 - kubectl get pods -n dev
 - ifconfig eth1
 - k3s check-config
+
 
 #### Ressources
 

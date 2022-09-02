@@ -14,6 +14,7 @@ AGENT_IP = "192.168.42.111"
 Vagrant.configure("2") do |config|
   # configuration globale de nos VM
   config.vm.box = VAGRANT_BOX 
+  # pour les pcs de 42, utiliser nfs a la place de virtualbox pour les synced_folder
   config.vbguest.installer_options = { allow_kernel_upgrade: true } # lié à notre OS et au vb_guest => important
   config.vm.provider "virtualbox" do |v|
     v.cpus = CPUS
@@ -26,7 +27,7 @@ Vagrant.configure("2") do |config|
   # configuration de notre server => script server
   config.vm.define VM_NAME_SERVER do |master|
     master.vm.hostname = VM_NAME_SERVER
-    master.vm.synced_folder "./", "/home/vagrant/synced_folder", type: "virtualbox"
+    master.vm.synced_folder "./", "/vagrant/synced_folder", type: "virtualbox", SharedFoldersEnableSymlinksCreate: true
     master.vm.network "private_network", ip: SERVER_IP, hostname: true, virtualbox__intnet: "08net"
     master.vm.provider "virtualbox" do |v|
       v.name = VM_NAME_SERVER
@@ -38,7 +39,7 @@ Vagrant.configure("2") do |config|
   # configuration de notre worker => script agent
   config.vm.define VM_NAME_AGENT do |worker|
     worker.vm.hostname = VM_NAME_AGENT
-    worker.vm.synced_folder "./", "/home/vagrant/synced_folder", type: "virtualbox"
+    worker.vm.synced_folder "./", "/vagrant/synced_folder", type: "virtualbox", SharedFoldersEnableSymlinksCreate: true
     worker.vm.network "private_network", ip: AGENT_IP, hostname: true, virtualbox__intnet: "08net"
     worker.vm.provider "virtualbox" do |v|
       v.name = VM_NAME_AGENT

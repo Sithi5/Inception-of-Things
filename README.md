@@ -41,13 +41,13 @@ This project is divided into three parts to be done in the order indicated:
         - lancer la commande dans votre terminal de pc pour la vm Host : VBoxManage modifyvm vm-name --nested-hw-virt on
         - installer les additions guests sur la vm Host
         !!! très important, virtualisation obligatoire !!!
-    connection ssh a la vm:
-        - créer une nouvelle connexion sur virtualbox pour 42 en NAT sinon le proxy bloque la connexion en bridge
-        - mettre la première connexion de la vm en bridge connexion sur virtualbox
-        - sudo apt install net-tools
-        - sudo apt install openssh-server
-        - sudo service sshd restart
-        - lancer ifconfig et taper dans terminal ssh user@192.168.0.0
+        Synced folder:
+        Pour créer le synced folder, vous devez ajouter un dossier partagé après avoir renseigner dans virtualbox un path, et cocher auto-mount
+        ensuite, lancer la vm et run cette commande :
+        **sudo apt install virtualbox-guest-utils**
+        **sudo adduser [username] vboxsf**
+        then reboot and open the file with sf_ in front if it
+        copy wanted data to home
         - suivre les walktrought
 
 **k3s :**
