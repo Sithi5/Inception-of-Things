@@ -10,22 +10,22 @@ sudo yum install net-tools -y
 
 echo "[APP-1] : deploying..."
 
-/usr/local/bin/kubectl  apply -f /Users/julien/42/IoT/p2/jcammasS/confs/app1/app1.yaml
-/usr/local/bin/kubectl  apply -f /Users/julien/42/IoT/p2/jcammasS/confs/app1/app1.ingress.yaml
+/usr/local/bin/kubectl  apply -f /home/vagrant/synced_folder/confs/app1/app1.yaml
+/usr/local/bin/kubectl  apply -f /home/vagrant/synced_folder/confs/app1/app1.ingress.yaml
 
 echo "[APP-1] : ok..." 
 
 
 echo "[APP-2] : deploying..."
 
-/usr/local/bin/kubectl  apply -f /Users/julien/42/IoT/p2/jcammasS/confs/app2/app2.yaml
-/usr/local/bin/kubectl  apply -f /Users/julien/42/IoT/p2/jcammasS/confs/app2/app2.ingress.yaml
+/usr/local/bin/kubectl  apply -f /home/vagrant/synced_folder/confs/app2/app2.yaml
+/usr/local/bin/kubectl  apply -f /home/vagrant/synced_folder/confs/app2/app2.ingress.yaml
 
 echo "[APP-2] : ok..." 
 
 echo "[APP-3] : deploying..."
 
-/usr/local/bin/kubectl  apply -f /Users/julien/42/IoT/p2/jcammasS/confs/app3/app3.yaml
-/usr/local/bin/kubectl  apply -f /Users/julien/42/IoT/p2/jcammasS/confs/app3/app3.ingress.yaml
+/usr/local/bin/kubectl  apply -f /home/vagrant/synced_folder/confs/app3/app3.yaml
+/usr/local/bin/kubectl  apply -f /home/vagrant/synced_folder/confs/app3/app3.ingress.yaml
 
 echo "[APP-3] : ok..." 

@@ -1,0 +1,28 @@
+CPUS = 4
+MEMORY = 4096
+BOX = "centos/stream8"
+VM_NAME = "iot-gitlabvm"
+EXTERNAL_IP = "192.168.56.10"
+
+
+Vagrant.configure("2") do | config |
+  config.vm.box = BOX
+  config.vm.box_url = "https://app.vagrantup.com/centos/boxes/stream8/versions/20210210.0/providers/virtualbox.box"
+  config.vm.box_check_update = false
+  config.vbguest.installer_options = { allow_kernel_upgrade: true }
+  config.ssh.insert_key = false
+  config.vm.network "forwarded_port", guest: 8181, host: 8181, protocol: "tcp"
+  config.vm.hostname = VM_NAME
+  config.vm.network "private_network", ip: EXTERNAL_IP, hostname: true
+  config.vm.synced_folder ".", "/vagrant", type: "virtualbox", SharedFoldersEnableSymlinksCreate: true
+  
+  config.vm.provider "virtualbox" do | vb |
+    vb.name = VM_NAME
+    vb.cpus = CPUS
+    vb.memory = MEMORY
+    vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+    vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"] 
+    vb.customize [ "guestproperty", "set", :id, "/VirtualBox/GuestAdd/VBoxService/--timesync-set-threshold", 10000 ]
+  end
+  config.vm.provision "shell", path: "./scripts/install_gitlab.sh", privileged: true
+end

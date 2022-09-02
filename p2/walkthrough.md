@@ -17,6 +17,13 @@
   - Créer une VM avec k3s en mode serveur comme dans la P1
   - Utiliser des fichier yaml (ansible) pour créer les différentes applications associées
 
+#### curl command for test
+
+- curl -sH "Host:app1.com" 192.168.42.110 => return hello from app1
+- curl -sH "Host:app2.com" 192.168.42.110 => return hello from app2 with different pod number <td>app-two-6c6d5974f9-vfq69</td>
+- curl -sH "Host:app3.com" 192.168.42.110 => return hello from app3
+- curl -sH "Host:42.fr" 192.168.42.110 => return hello from app3
+
 #### Ressources
 
 - [deploy k3s with ansible](https://www.suse.com/c/rancher_blog/deploying-k3s-with-ansible/)
@@ -28,45 +35,3 @@
 - Paul bouwer vraiment bcp de ressources => approfondir
 - [commande à intégrer en cas de souci avec yum mirror etc](https://www.cyberithub.com/solved-failed-to-download-metadata-for-repo-appstream/)
 - [souci en cas de vbguest](https://stackoverflow.com/questions/43492322/vagrant-was-unable-to-mount-virtualbox-shared-folders)
-
-       <!-- ingress to configure all app
-      # EXEMPLE DE LA DOC
-
-      # apiVersion: networking.k8s.io/v1
-      # kind: Ingress
-      # metadata:
-      #   name: simple-fanout-example
-      #   annotations:
-      #     nginx.ingress.kubernetes.io/rewrite-target: /
-      # spec:
-      #   rules:
-      #   - host: foo.bar.com
-      #     http:
-      #       paths:
-      #       - path: /foo
-      #         pathType: Prefix
-      #         backend:
-      #           service:
-      #             name: service1
-      #             port:
-      #               number: 4200
-      #       - path: /bar
-      #         pathType: Prefix
-      #         backend:
-      #           service:
-      #             name: service2
-      #             port:
-      #               number: 8080 -->
-
-      <!-- # EXEMPLE DOC DEFAULTBACKEND
-
-      # apiVersion: networking.k8s.io/v1
-      # kind: Ingress
-      # metadata:
-      #   name: test-ingress
-      # spec:
-      #   defaultBackend:
-      #     service:
-      #       name: testsvc
-      #       port:
-      #         number: 80 -->
