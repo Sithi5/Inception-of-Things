@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/jcammas/jcammas-argocd.git # => changer le répo git
     targetRevision: HEAD
-    path: app
+    path: manifests
     directory:
       recurse: true
   destination:

@@ -26,6 +26,12 @@ Vous devez installer K3s sur chaque machine et les setup grace a kubectl:
 
 On lance le script install_vm.sh pour lancer le vagrant, vagrant up et c'est fini.
 
+- kubectl get nodes -o wide
+- kubectl get ns
+- kubectl get pods -n dev
+- ifconfig eth1
+- k3s check-config
+
 #### Ressources
 
 - [deploy k3s with ansible](https://www.suse.com/c/rancher_blog/deploying-k3s-with-ansible/)

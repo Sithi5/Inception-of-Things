@@ -1,21 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  labels:
-    app: argocdrocks
-  name: gitlab_app
+  name: gitlab-app
+  namespace: argocd
 spec:
-  project: argocdrocks-project
+  project: development2
   source:
-    repoURL: https://github.com/jcammas/jcammas-argocd.git # => changer le répo git
+    repoURL: http://192.168.56.10:8181/root/jcammas-argocd.git
     targetRevision: HEAD
-    path: manifests
+    path: ./
     directory:
       recurse: true
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: gitlab
   syncPolicy:
     automated:
-      prune: false
+      prune: true
       selfHeal: true

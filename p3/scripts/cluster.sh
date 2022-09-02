@@ -37,7 +37,7 @@ sudo kubectl apply -n argocd -f ../confs/install.yaml # plus tard mettre à jour
 
 echo "${DARK_GREEN}[TOOLS] : WAIT FOR PODS TO CONTINUE...${END}"
 # check if pods are ready => if not, waiting for it
-sudo kubectl wait -n argocd --for=condition=Ready pods --all
+# sudo kubectl wait -n argocd --for=condition=Ready pods --all
 
 echo "${DARK_GREEN}[TOOLS] : INSTALL INGRESS...${END}"
 # Create an Ingress to redirect /argocd to the argocd main service

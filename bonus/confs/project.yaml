@@ -1,19 +1,11 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: gitlab_project
-  labels:
-    app: argocdrocks
+  name: development2
+  namespace: argocd
 spec:
-  # Project description
-  description: Our ArgoCD Project to deploy our app locally
-  # Allow manifests to deploy only from Sokube git repositories
   sourceRepos:
-    - "http://192.168.42.100:1515/root/*"
-  # Only permit to deploy applications in the same cluster
+  - "http://192.168.56.10:8181/root/*"
   destinations:
-    - namespace: gitlab
-      server: https://kubernetes.default.svc
-  # Enables namespace orphaned resource monitoring.
-  orphanedResources:
-    warn: false
+  - namespace: gitlab
+    server: https://kubernetes.default.svc
